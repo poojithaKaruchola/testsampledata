@@ -1,5 +1,6 @@
 
-{{ config (alias = "CustomerOrders", materialized = "view",schema='TEST',sql_header = "alter session set timezone = 'Asia/Kolkata';") }}
+{{ config (alias = "CustomerOrders", materialized = "view", pre_hook = "alter session set timezone = 'Asia/Kolkata';",
+post_hook = "delete from ANALYTICS.INSIGHTS.STG_CUSTOMERS where customer_id < 30;") }}
 
 with customers as (
 
